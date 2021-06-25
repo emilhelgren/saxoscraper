@@ -3,15 +3,28 @@
 const stockSelector = document.querySelector('#stockselector');
 const infoElement = document.querySelector('#info')
 
+var stocks;
+
+$(stockSelector).on('change', function() {
+    stocks.forEach((stock) => {
+        if (this.value === stock.name) {
+            infoElement.innerHTML = `<pre>amount = ${stock.amount} \nopenprice = ${stock.openprice} \ninvestment = ${stock.investment}</pre>`
+        }
+    });
+    
+});
+
+
 function displayStocks(stocks) {
     stocks.forEach((stock) => {
         const optionElement = document.createElement('option');
         optionElement.setAttribute('value', stock.name);
         optionElement.textContent = stock.name;
         stockSelector.append(optionElement);
-        optionElement.addEventListener('click', () => {
-            infoElement.innerHTML = `<pre>${JSON.stringify(stock, null, 2)}</pre>`
-        });
+        // VIRKER KUN I FIREFOX :( 
+        // optionElement.addEventListener('click', () => {
+        //     infoElement.innerHTML = `<pre>${JSON.stringify(stock, null, 2)}</pre>`
+        // });
     
     });
 }
@@ -19,7 +32,7 @@ function displayStocks(stocks) {
 async function getStocks() {
     // fetch er en function man bruger i browseren åbenbart
     const response = await fetch('/api/stocks');
-    const stocks = await response.json();
+    stocks = await response.json();
     displayStocks(stocks);
 }
 
