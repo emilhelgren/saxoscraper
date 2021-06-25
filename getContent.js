@@ -17,8 +17,8 @@ function getStocks($) {
         stocks.push(stock);
     })
 
-    console.log(stocks);
-    // return stocks;
+    // console.log(stocks);
+    return stocks;
 }
 
 function getReturns($) {
@@ -29,13 +29,12 @@ function getReturns($) {
 async function getContent() {
     const { data } = await axios.get(page_url); // This is entire HTML page
     const $ = cheerio.load(data); // We pass that into cheerio which is some kind of jquery thing
-    getStocks($);
+    const stocks = getStocks($);
     getReturns($);
+    return stocks;
 }
 
 // const investorID = 'Mads Christiansen'
-getContent();
+// getContent();
 
-
-
-// module.exports = getStocks;
+module.exports = getContent;

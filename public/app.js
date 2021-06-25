@@ -1,6 +1,3 @@
-const express = require('express');
-
-
 
 // Vores 'select' dropdown der skal have states listen der har ID='states'
 const stockSelector = document.querySelector('#stockselector');
@@ -11,7 +8,7 @@ function displayStocks(stocks) {
         const optionElement = document.createElement('option');
         optionElement.setAttribute('value', stock.name);
         optionElement.textContent = stock.name;
-        statesElement.append(optionElement);
+        stockSelector.append(optionElement);
         optionElement.addEventListener('click', () => {
             infoElement.innerHTML = `<pre>${JSON.stringify(stock, null, 2)}</pre>`
         });
